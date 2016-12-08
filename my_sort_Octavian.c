@@ -21,7 +21,8 @@ int main(int argc, char* argv[])
 
   if(f == 0)
   {
-    fprintf(stderr, "Eroare la deschiderea fisierului !!!");
+    fprintf(stderr, "Eroare la deschiderea fisierului !\nConsultati \'--help\' pentru ajutor !\n");
+    return -1;
   }
 
   while(!feof(f))
@@ -61,6 +62,7 @@ void mySort(char *str[], int n)
         strcpy(str[j + 1], temp);
       }
     }
+  free(temp);
 }
 
 
