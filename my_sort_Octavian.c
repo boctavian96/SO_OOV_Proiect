@@ -6,7 +6,7 @@
 #define STR_SIZE 1024
 
 void mySort(char *str[], int n);
-void afisareLista(char *str[]);
+void afisareLista(char *str[], int n);
 
 int main(int argc, char* argv[])
 {
@@ -33,11 +33,11 @@ int main(int argc, char* argv[])
 
   printf("Numar linii : %d\n", n);
 
-  afisareLista(strList);
+  //afisareLista(strList, n);
 
   mySort(strList, n);
 
-  afisareLista(strList);
+  afisareLista(strList, n);
 
   fclose(f);
 
@@ -46,11 +46,11 @@ int main(int argc, char* argv[])
 
 void mySort(char *str[], int n)
 {
-  char *temp;
-  int i, j;
+  char *temp; //Variabila auxiliara
+  int i, j; //Contoare
 
-  for(int i = 0; i < n; i++)
-    for(int j = 0; j < n-1; j++)
+  for(i = 0; i < n; i++)
+    for(j = 0; j < n-1; j++)
     {
       if(strcmp(str[j], str[j+1]) > 0)
       {
@@ -62,11 +62,11 @@ void mySort(char *str[], int n)
 }
 
 
-void afisareLista(char* str[])
+void afisareLista(char* str[], int n)
 {
   int i;
-  for(i = 0; str != NULL; i++)
+  for(i = 0; i < n; i++)
   {
-    printf("%s\n", str[i]);
+    printf("%s", str[i]);
   }
 }
