@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 		fd = open("my_cal.txt", O_RDONLY);
 
 		 buff = malloc(sizeof(char *) * SIZE);
-                        while ((bytesRead = read(fd, buff, SIZE)) > 0)
+                       while ((bytesRead = read(fd, buff, SIZE)) > 0)
                         {
                                 buff[bytesRead] = '\0';
                                 printf("%s", buff);
@@ -35,7 +35,16 @@ int main(int argc, char* argv[])
                         free(buff);
 		close(fd);
 	
+	 }
+ 	if (argv[1]== "-d" && argv[2]=="my_cal")
+	{
+		printf("displays a calendar and the date of Easter\n");
 	}
-
+	
+	if (argv[1]== "--version" && argv[2]=="my_yes")
+	{
+		printf("yes (GNU coreutils) 8.25 \n Copyright (C) 2016 Free Software Foundation, Inc.\n");
+	}
+	
         return 0;
 }
