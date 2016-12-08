@@ -1,0 +1,23 @@
+NAME
+       yes - output a string repeatedly until killed
+
+SYNOPSIS
+       yes [STRING]...
+       yes OPTION
+
+DESCRIPTION
+       Repeatedly output a line with all specified STRING(s), or 'y'.
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+ yes command outputs 'y' or whatever is specified as an argument, followed by a newline repeatedly until stopped by 
+ the user or otherwise killed; when piped into a command, it will continue until the pipe breaks
+ (i.e., the program completes its execution).
+
+It can also be used to test how well a system handles high loads, as using yes results in 100% processor usage, 
+for systems with a single processor (for a multiprocessor system, a process must be run for each processor). 
+This, for example, can be useful for investigating whether a system's cooling system will be effective when the processor 
+is running at 100%.
