@@ -1,13 +1,17 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+/*
+Autor: Octavian Bodnariu
+Versiune: 1.0
+*/
 
 void versiune(const char* v);
 void help();
 int main(int argc, char* argv[])
 {
   char *c;
-  const char *ver = "Versiunea 1.0\nOctavian Bodnariu\nEmail:boctavian96@yahoo.com\n";
+  const char *ver = "Versiunea 1.0\nAutor:Octavian Bodnariu\nEmail:boctavian96@yahoo.com\n";
   
   if(argv[1] != NULL)
   {
