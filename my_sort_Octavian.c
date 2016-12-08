@@ -27,13 +27,15 @@ int main(int argc, char* argv[])
   while(!feof(f))
   {
     fgets(buff, SIZE, f); //Citire linie
-    strList[n] = strdup(buff); 
+    strList[n] = strdup(buff);
     n++;
   }
+  strList[n] = NULL;
+  n--;
 
   printf("Numar linii : %d\n", n);
 
-  //afisareLista(strList, n);
+//  afisareLista(strList, n);
 
   mySort(strList, n);
 
@@ -46,7 +48,7 @@ int main(int argc, char* argv[])
 
 void mySort(char *str[], int n)
 {
-  char *temp; //Variabila auxiliara
+  char *temp = malloc(sizeof(char)); //Variabila auxiliara
   int i, j; //Contoare
 
   for(i = 0; i < n; i++)
