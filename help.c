@@ -119,5 +119,19 @@ int main(int argc, char* argv[])
 		close(fd);
 	}
 	
+	if (argv[1]=="my_help")// afisarea pe linia de comanda a documentatiei pentru comanda my_help
+	{
+		fd = open("my_help.txt", O_RDONLY);
+
+		 buff = malloc(sizeof(char *) * SIZE);
+                        while ((bytesRead = read(fd, buff, SIZE)) > 0)
+                        {
+                                buff[bytesRead] = '\0';
+                                printf("%s", buff);
+                        }
+                        free(buff);
+		close(fd);
+	}
+	
         return 0;
 }
