@@ -1,0 +1,35 @@
+
+NAME
+     cal, ncal — displays a calendar and the date of Easter
+
+SYNOPSIS
+     cal [-3hjy] [-A number] [-B number] [[month] year]
+     cal [-3hj] [-A number] [-B number] -m month [year]
+     ncal [-3bhjJpwySM] [-A number] [-B number] [-s country_code] [[month]
+         year]
+     ncal [-3bhJeoSM] [-A number] [-B number] [year]
+     ncal [-CN] [-H yyyy-mm-dd] [-d yyyy-mm]
+
+DESCRIPTION
+     The cal utility displays a simple calendar in traditional format and ncal
+     offers an alternative layout, more options and the date of Easter.  The
+     new format is a little cramped but it makes a year fit on a 25x80 termi‐
+     nal.  If arguments are not specified, the current month is displayed.
+
+     The options are as follows:
+
+     -h      Turns off highlighting of today.
+
+
+
+     -m      month
+             Display the specified month.  If month is specified as a decimal
+             number, appending ‘f’ or ‘p’ displays the same month of the fol‐
+             lowing or previous year respectively.
+
+  
+
+     -y      Display a calendar for the specified year. This option is implied
+             when a year but no month are specified on the command line.
+
+     
