@@ -3,7 +3,7 @@
 #include<string.h>
 /*
 Autor: Octavian Bodnariu
-Versiune: 1.0
+Versiune: 1.1
 */
 
 void versiune(const char* v);
@@ -12,7 +12,18 @@ int main(int argc, char* argv[])
 {
   char *c;
   const char *ver = "Versiunea 1.0\nAutor:Octavian Bodnariu\nEmail:boctavian96@yahoo.com\n";
-  
+  int arglen = argc>1 ? strlen(argv[1] + 1) : 0;
+  int i = 1;
+  char *argument = malloc(sizeof(char));
+
+  if(argc > 1)
+    while(i < argc)
+    {
+      argument = strcat(argument, argv[i]);
+      argument = strcat(argument, " ");
+      i++;
+    }
+
   if(argv[1] != NULL)
   {
 	  if(strcmp(argv[1], "--version")==0) //Daca argumentul este exact "--version" atunci afiseaza versiunea
@@ -35,8 +46,8 @@ int main(int argc, char* argv[])
     if(strcmp(argv[1],"--version") != 0 && strcmp(argv[1],"--help") != 0)
       do
       {
-        c = malloc(sizeof(char*));
-        c = argv[1];
+        c = (char*)malloc(sizeof(char) * arglen);
+        c = argument;
         printf("%s \n", c);
       }while(c != NULL);
   }
