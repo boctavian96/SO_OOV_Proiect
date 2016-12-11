@@ -1,0 +1,52 @@
+
+NAME
+       locate - find files by name
+
+SYNOPSIS
+       locate [OPTION]... PATTERN...
+
+DESCRIPTION
+       locate  reads  one or more databases prepared by updatedb(8) and writes
+       file names matching at least one of the PATTERNs  to  standard  output,
+       one per line.
+
+       If  --regex is not specified, PATTERNs can contain globbing characters.
+       If any PATTERN contains no globbing characters, locate  behaves  as  if
+       the pattern were *PATTERN*.
+
+       By default, locate does not check whether files found in database still
+       exist (but it does require all parent directories to exist if the data‐
+       base  was built with --require-visibility no).  locate can never report
+       files created after the most recent update of the relevant database.
+
+EXIT STATUS
+       locate exits with status 0 if any match was  found  or  if  locate  was
+       invoked  with  one  of the --limit 0, --help, --statistics or --version
+       options.  If no match was found  or  a  fatal  error  was  encountered,
+       locate exits with status 1.
+
+       Errors  encountered while reading a database are not fatal, search con‐
+       tinues in other specified databases, if any.
+
+OPTIONS
+       -A, --all
+              Print only entries that match all PATTERNs instead of  requiring
+              only one of them to match.
+
+       -b, --basename
+              Match  only  the base name against the specified patterns.  This
+              is the opposite of --wholename.
+
+       -c, --count
+              Instead of writing file names on standard output, write the num‐
+              ber of matching entries only.
+
+       -d, --database DBPATH
+              Replace  the  default database with DBPATH.  DBPATH is a :-sepa‐
+              rated list of database file names.  If more than one  --database
+              option  is  specified,  the resulting path is a concatenation of
+              the separate paths.
+ -h, --help
+              Write a summary of the available options to standard output  and
+              exit successfully.
+
