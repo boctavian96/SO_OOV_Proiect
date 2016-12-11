@@ -1,8 +1,8 @@
+#include <sys/wait.h> // waitpid()
+#include <unistd.h> // fork(), exec(), pid
 #include <stdio.h>
 #include <stdlib.h> // exit(), execvp()
-#include <unistd.h> // fork(), exec(), pid
 #include <string.h> //Pentru strtok()
-#include <sys/wait.h> // waitpid()
 
 #define BUFFSIZE 64
 #define SEPARATOR " \t\r\n\a"
@@ -21,7 +21,7 @@ Info:
 Autor : Octavian Bodnariu
 Implementari: Shell, yes, sort
 
-Autor : Vasile Anisorac 
+Autor : Vasile Anisorac
 Implementari: ls, help + documentatie
 
 Autor : Ovidiu Andrasesc
@@ -36,7 +36,7 @@ char *citireLinie();
 char *parsareLinie(char *linie);
 int lansare(char **argumente);
 int executa(char **argumente);
-void buclaPrincipala(char *user);
+void buclaPrincipala();
 //Functii implementate
 int my_help(char **argumente);
 int my_version(char **argumente);
@@ -47,7 +47,7 @@ int my_ls(char **argumente);
 int my_cal(char **argumente);
 int my_rename(char **argumente);
 int my_locate(char **argumente);
-//Lista de comenzi
+//Lista de comenzi(String)
 char *comenzi[] = {
   "myHelp",
   "myVersion",
@@ -59,7 +59,7 @@ char *comenzi[] = {
   "myRename",
   "exit"
 };
-//Lista
+//Lista in care vor intra functiile cu comenzile construite
 int (*comenzi_construite[])(char**) = {
   &my_help,
   &my_version,
@@ -68,7 +68,8 @@ int (*comenzi_construite[])(char**) = {
   &my_cal,
   &my_ls,
   &my_locate,
-  &my_rename
+  &my_rename,
+  &my_exit
 };
 
 int terminal_num_comenzi_construite()
@@ -78,17 +79,47 @@ int terminal_num_comenzi_construite()
 
 int main(int argc, char* argv[])
 {
-
-  buclaPrincipala("Octavian");
-  return 0;
+  buclaPrincipala();
+  return EXIT_SUCCESS;
 }
 
 char *citireLinie()
 {
-  char *linie = NULL;
-  ssize_t bufsize = 0;
-  getline(&linie, &bufsize, stdin);
-  return linie;
+  int bufsize = BUFFSIZE;
+  int pozitie = 0;
+  char *buffer = malloc(sizeof(char) * bufsize);
+  int c;
+
+  if(!buffer)
+    {
+        ALOC_ERR;
+    }
+    while(1)
+    {
+        c = getchar();
+
+        if(c == EOF || c== '\n')
+        {
+            buffer[pozitie] = '\0';
+            return buffer;
+        }
+        else
+        {
+            buffer[pozitie] = c;
+        }
+        pozitie++;
+
+        if(pozitie >= bufsize)
+        {
+            bufsize += BUFFSIZE;
+            buffer = realloc(buffer, bufsize);
+            if(!buffer)
+            {
+                ALOC_ERR;
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
 }
 
 char *parsareLinie(char *linie)
@@ -96,7 +127,7 @@ char *parsareLinie(char *linie)
   int buffer = BUFFSIZE;
   int pozitie = 0;
   char **tokens = malloc(buffer * sizeof(char*));
-  char *token;
+  char *token, **tokens_backup;
 
   if(!tokens)
   {
@@ -124,12 +155,12 @@ char *parsareLinie(char *linie)
   token = strtok(NULL, SEPARATOR);
   }
   tokens[pozitie] = NULL;
-  return *tokens;
+  return tokens;
 }
 
 int lansare(char **argumente)
 {
-  pid_t pid, wpid;
+  pid_t pid;
   int status;
 
   pid = fork();
@@ -152,7 +183,7 @@ int lansare(char **argumente)
   {
     do
     {
-      wpid = waitpid(pid, &status, WUNTRACED);
+      waitpid(pid, &status, WUNTRACED);
     }while(!WIFEXITED(status) && !WIFSIGNALED(status));
   }
 
@@ -160,19 +191,19 @@ int lansare(char **argumente)
 }
 int executa(char **argumente)
 {
-  int i;
-  if(argumente[0] == NULL)
-    return 1; //O comanda goala a fost inserata
-  
-  for(i = 0; i < terminal_num_comenzi_construite(); i++)
-  {
-    if(strcmp(argumente[0], comenzi[i]) == 0)
-      return(comenzi_construite[i])(argumente);
-  }
+    int i;
 
-  return lansare(argumente);
+    if(argumente[0] == NULL)
+    {
+        return 1;
+    }
+    for(i = 0; i < terminal_num_comenzi_construite(); i++)
+    {
+        if(strcmp(argumente[0], comenzi[i]) == 0)
+            return (*comenzi_construite[i])(argumente);
+    }
 }
-void buclaPrincipala(char* user)
+void buclaPrincipala()
 {
   char *linie;
   char **argumente;
@@ -180,7 +211,7 @@ void buclaPrincipala(char* user)
 
   do
   {
-    printf("%s$> ", user);
+    printf("%s$> ", "Octavian");
     linie = citireLinie();
     argumente = parsareLinie(linie);
     status = executa(argumente);
@@ -195,7 +226,7 @@ int my_help(char **argumente)
 {
   int i; //Contor
   printf("Proiect Sisteme de operare\n");
-  printf("Scrieti numele programului si argumentele si apasa ENTER");
+  printf("Scrieti numele programului si argumentele si apasa ENTER\n");
   printf("Urmatorele instructiuni sunt construite: \n");
 
   for(i = 0; i < terminal_num_comenzi_construite(); i++)
@@ -203,7 +234,7 @@ int my_help(char **argumente)
     printf(" %s\n", comenzi[i]);
   }
 
-  printf("Folositi help si numele programului pentru mai mult ajutor");
+  printf("Folositi help si numele programului pentru mai mult ajutor\n");
   return 1;
 }
 //VASILE
