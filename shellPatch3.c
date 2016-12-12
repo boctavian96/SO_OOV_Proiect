@@ -8,6 +8,10 @@
 #define SEPARATOR " \t\r\n\a"
 #define ALOC_ERR fprintf(stderr,"Allocation error !")
 
+//Sort
+#define SIZE 256
+#define STR_SIZE 1024
+
 /*
 Basic loop :
   1.Citim comanda din stdin
@@ -47,6 +51,14 @@ int my_ls(char **argumente);
 int my_cal(char **argumente);
 int my_rename(char **argumente);
 int my_locate(char **argumente);
+
+/*---------------------------> Functii specifice comenzilor <---------------------------------------- */
+
+//Sort
+void mySort(char *str[], int n);
+void afisareLista(char *str[], int n);
+
+
 //Lista de comenzi(String)
 char *comenzi[] = {
   "myHelp",
@@ -187,7 +199,7 @@ int lansare(char **argumente)
     }while(!WIFEXITED(status) && !WIFSIGNALED(status));
   }
 
-  return 1;
+   return 1;
 }
 int executa(char **argumente)
 {
@@ -250,11 +262,88 @@ int my_exit(char **argumente)
 //OCTAVIAN
 int my_yes(char **argumente)
 {
+  char *c;
+  const char *ver = "Versiunea 1.0\nAutor:Octavian Bodnariu\nEmail:boctavian96@yahoo.com\n";
+  int argc = sizeof(argumente)/sizeof(*argumente);
+  int arglen = argc>1 ? strlen(argumente[1] + 1) : 0;
+  int i = 1;
+  char *argument = malloc(sizeof(char));
+
+  if(argc > 1)
+    while(i < argc)
+    {
+      argument = strcat(argument, argumente[i]);
+      argument = strcat(argument, " ");
+      i++;
+    }
+
+  if(argumente[1] != NULL)
+  {
+	  if(strcmp(argumente[1], "--version")==0) //Daca argumentul este exact "--version" atunci afiseaza versiunea
+      //versiune(ver);
+  	if(strcmp(argumente[1], "--help")==0) //Daca argumentul este exact "--help" atunci afiseaza help-ul
+    {
+      //help();
+    }
+  }
+  //Verificam daca argumentul este null
+  if(argumente[1] == NULL)
+  {
+    do
+    {
+      c = (char*) malloc(sizeof(char*));
+      *c = 'y';
+      printf("%s \n", c);
+    }while(c != NULL);
+  }
+  else
+  {
+    if(strcmp(argumente[1],"--version") != 0 && strcmp(argumente[1],"--help") != 0)
+      do
+      {
+        c = (char*)malloc(sizeof(char) * arglen);
+        c = argument;
+        printf("%s \n", c);
+      }while(c != NULL);
+  }
   return 1;
 }
 //OCTAVIAN
 int my_sort(char **argumente)
 {
+  FILE *f; //Fila 
+  char buff[SIZE]; // Buffer
+  char *strList[STR_SIZE]; //Lista cuvinte
+  int n = 0; //Contor linii
+  int i; //Contor
+
+  //Citire din fisier
+  f = fopen(argumente[1], "r");
+
+  if(f == 0)
+  {
+    fprintf(stderr, "Eroare la deschiderea fisierului !\nConsultati \'--help\' pentru ajutor !\n");
+    return -1;
+  }
+
+  while(!feof(f))
+  {
+    fgets(buff, SIZE, f); //Citire linie
+    strList[n] = strdup(buff);
+    n++;
+  }
+  strList[n] = NULL;
+  n--;
+
+  printf("Numar linii : %d\n", n);
+
+//  afisareLista(strList, n);
+
+  mySort(strList, n);
+
+  afisareLista(strList, n);
+
+  fclose(f);
   return 1;
 }
 //VASILE
@@ -276,4 +365,31 @@ int my_rename(char **argumente)
 int my_locate(char **argumente)
 {
   return 1;
+}
+
+void mySort(char *str[], int n)
+{
+  char *temp = malloc(sizeof(char)); //Variabila auxiliara
+  int i, j; //Contoare
+
+  for(i = 0; i < n; i++)
+    for(j = 0; j < n-1; j++)
+    {
+      if(strcmp(str[j], str[j+1]) > 0)
+      {
+        strcpy(temp, str[j]);
+        strcpy(str[j], str[j + 1]);
+        strcpy(str[j + 1], temp);
+      }
+    }
+  free(temp);
+}
+
+void afisareLista(char* str[], int n)
+{
+  int i;
+  for(i = 0; i < n; i++)
+  {
+    printf("%s", str[i]);
+  }
 }
