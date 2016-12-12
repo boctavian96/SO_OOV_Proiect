@@ -5,13 +5,12 @@
 #include <string.h> //Pentru strtok()
 #include <time.h> //Pentru randomize
 
+#include "my_sort_Octavian.h"
+#include "my_yes_Octavian.h"
+
 #define BUFFSIZE 64
 #define SEPARATOR " \t\r\n\a"
 #define ALOC_ERR fprintf(stderr,"Allocation error !")
-
-//Sort
-#define SIZE 256
-#define STR_SIZE 1024
 
 /*
 Basic loop :
@@ -56,11 +55,11 @@ int my_locate(char **argumente);
 /*---------------------------> Functii specifice comenzilor <---------------------------------------- */
 
 //Sort
-void mySort(char *str[], int n);
-void mySortRandom(char *str[], int n);
-void mySortPermanentSort(char *str[], char* fileName, int n);
+void mySort(char* str[], int n);
+void afisareLista(char* str[], int n);
 void revSort(char* str[], int n);
-void afisareLista(char *str[], int n);
+void mySortRandom(char *str[], int n);
+void mySortPermanentSort(char *str[], char *fileName, int n);
 
 
 //Lista de comenzi(String)
@@ -297,106 +296,7 @@ int my_exit(char **argumente)
 @exemple : my_yes [STRING] ; my_yes [NULL] ;
 @return : Intotdeauna 1
 */
-int my_yes(char **argumente)
-{
-  char *c;
-  const char *ver = "Versiunea 1.0\nAutor:Octavian Bodnariu\nEmail:boctavian96@yahoo.com\n";
-  int argc = sizeof(argumente)/sizeof(*argumente);
-  int arglen = argc>1 ? strlen(argumente[1] + 1) : 0;
-  int i = 1;
-  char *argument = malloc(sizeof(char));
 
-  if(argc > 1)
-    while(i < argc)
-    {
-      argument = strcat(argument, argumente[i]);
-      argument = strcat(argument, " ");
-      i++;
-    }
-
-  if(argumente[1] != NULL)
-  {
-	  if(strcmp(argumente[1], "--version")==0) //Daca argumentul este exact "--version" atunci afiseaza versiunea
-      //versiune(ver);
-  	if(strcmp(argumente[1], "--help")==0) //Daca argumentul este exact "--help" atunci afiseaza help-ul
-    {
-      //help();
-    }
-  }
-  //Verificam daca argumentul este null
-  if(argumente[1] == NULL)
-  {
-    do
-    {
-      c = (char*) malloc(sizeof(char*));
-      *c = 'y';
-      printf("%s \n", c);
-    }while(c != NULL);
-  }
-  else
-  {
-    if(strcmp(argumente[1],"--version") != 0 && strcmp(argumente[1],"--help") != 0)
-      do
-      {
-        c = (char*)malloc(sizeof(char) * arglen);
-        c = argument;
-        printf("%s \n", c);
-      }while(c != NULL);
-  }
-  return 1;
-}
-//OCTAVIAN
-int my_sort(char **argumente)
-{
-  FILE *f; //Fila
-  char buff[SIZE]; // Buffer
-  char *strList[STR_SIZE]; //Lista cuvinte
-  int n = 0; //Contor linii
-  int i; //Contor
-
-  //Citire din fisier
-  f = fopen(argumente[1], "r");
-          if(f == 0)
-        {
-            fprintf(stderr, "Eroare la deschiderea fisierului !\nConsultati \'--help\' pentru ajutor !\n");
-            return -1;
-        }
-
-        while(!feof(f))
-        {
-            fgets(buff, SIZE, f); //Citire linie
-            strList[n] = strdup(buff);
-            n++;
-        }
-        strList[n] = NULL;
-        n--;
-
-        printf("Numar linii : %d\n", n);
-
-    if(argumente[2])
-    {	
-    	if(strcmp(argumente[2], "-r") == 0)
-        {
-            mySortRandom(strList, n);
-        }
-    	if(strcmp(argumente[2], "-p") == 0)
-        {
-            mySortPermanentSort(strList, argumente[1], n);
-        }
-      if(strcmp(argumente[2], "-rev") == 0)
-        {
-            revSort(strList, n);
-        }
-    }
-    else
-    {
-      mySort(strList, n);
-    }
-
-  afisareLista(strList, n);
-  fclose(f);
-  return 1;
-}
 //VASILE
 int my_ls(char **argumente)
 {
@@ -416,100 +316,4 @@ int my_rename(char **argumente)
 int my_locate(char **argumente)
 {
   return 1;
-}
-
-void mySort(char *str[], int n)
-{
-  char *temp = malloc(sizeof(char)); //Variabila auxiliara
-  int i, j; //Contoare
-
-  for(i = 0; i < n; i++)
-    for(j = 0; j < n-1; j++)
-    {
-      if(strcmp(str[j], str[j+1]) > 0)
-      {
-        strcpy(temp, str[j]);
-        strcpy(str[j], str[j + 1]);
-        strcpy(str[j + 1], temp);
-      }
-    }
-  free(temp);
-  //afisareLista(str, n);
-}
-
-void afisareLista(char* str[], int n)
-{
-  int i;
-  for(i = 0; i < n; i++)
-  {
-    printf("%s", str[i]);
-  }
-}
-
-void mySortRandom(char *str[], int n)
-{
-  int p1, p2;
-  int i = 0;
-  char* temp = malloc(sizeof(char));
-  
-  if(n > 1)
-  {
-    size_t i;
-    for(i = 0; i < n - 1; i++)
-    {
-      size_t j = i + rand()/(RAND_MAX/(n-i)+1);
-      strcpy(temp, str[i]);
-      strcpy(str[i], str[j]);
-      strcpy(str[j], temp);
-    }
-  }
-  free(temp);
-  //afisareLista(str, n);
-}
-
-void mySortPermanentSort(char *str[], char *fileName, int n)
-{
-  char *temp = malloc(sizeof(char)); //Variabila auxiliara
-  int i, j; //Contoare
-
-  for(i = 0; i < n; i++)
-    for(j = 0; j < n-1; j++)
-    {
-      if(strcmp(str[j], str[j+1]) > 0)
-      {
-        strcpy(temp, str[j]);
-        strcpy(str[j], str[j + 1]);
-        strcpy(str[j + 1], temp);
-      }
-    }
-  free(temp);
-
-  FILE *f = fopen(fileName, "w");
-
-    for(i = 0; i < n; i++)
-    {
-        fprintf(f, "%s", str[i]);
-    }
-
-    fclose(f);
-
-}
-
-void revSort(char* str[], int n)
-{
-  char *temp = malloc(sizeof(char)); //Variabila auxiliara
-  int i, j; //Contoare
-
-  for(i = 0; i < n; i++)
-    for(j = 0; j < n-1; j++)
-    {
-      if(strcmp(str[j], str[j+1]) < 0)
-      {
-        strcpy(temp, str[j]);
-        strcpy(str[j], str[j + 1]);
-        strcpy(str[j + 1], temp);
-      }
-    }
-  free(temp);
-
 }
