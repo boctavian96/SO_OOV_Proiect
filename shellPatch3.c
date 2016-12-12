@@ -87,18 +87,24 @@ int (*comenzi_construite[])(char**) = {
   &my_rename,
   &my_exit
 };
-
+/**
+@return : Numarul de comenzi pe care il stie terminalul
+*/
 int terminal_num_comenzi_construite()
 {
   return sizeof(comenzi) / sizeof(char*);
 }
-
+/**
+Main-ul
+*/
 int main(int argc, char* argv[])
 {
   buclaPrincipala();
   return EXIT_SUCCESS;
 }
-
+/**
+Citirea unei linii din terminal
+*/
 char *citireLinie()
 {
   int bufsize = BUFFSIZE;
@@ -137,7 +143,10 @@ char *citireLinie()
         }
     }
 }
-
+/**
+@param : O linie care s-a citit din stdin
+@return : Linia parsata cu strtok()
+*/
 char *parsareLinie(char *linie)
 {
   int buffer = BUFFSIZE;
@@ -173,7 +182,10 @@ char *parsareLinie(char *linie)
   tokens[pozitie] = NULL;
   return tokens;
 }
-
+/**
+@param : Un string de tip array parsat
+@return : Intotdeauna 1
+*/
 int lansare(char **argumente)
 {
   pid_t pid;
@@ -205,6 +217,10 @@ int lansare(char **argumente)
 
    return 1;
 }
+/**
+@param : 
+@return : Adresa unei functii definite (poate fi 0 sau 1)
+*/
 int executa(char **argumente)
 {
     int i;
@@ -219,6 +235,10 @@ int executa(char **argumente)
             return (*comenzi_construite[i])(argumente);
     }
 }
+/**
+Aceasta procedura grupeaza toate functiile scrise anterior si functioneaza
+cat timp statusul este diferit de 0. Adica nu s-a activat comanda exit
+*/
 void buclaPrincipala()
 {
   char *linie;
@@ -238,6 +258,10 @@ void buclaPrincipala()
 
 }
 //VASILE
+/**
+@param :
+@return :
+*/
 int my_help(char **argumente)
 {
   int i; //Contor
@@ -259,11 +283,20 @@ int my_version(char **argumente)
   return 1;
 }
 //Iesirea
+/**
+@param : Argument primit de la linia de comanda
+@return : Intotdeauna 0. Inchide terminalul
+*/
 int my_exit(char **argumente)
 {
   return 0;
 }
 //OCTAVIAN
+/**
+@param : Argumente primite din linia de comanda
+@exemple : my_yes [STRING] ; my_yes [NULL] ;
+@return : Intotdeauna 1
+*/
 int my_yes(char **argumente)
 {
   char *c;
