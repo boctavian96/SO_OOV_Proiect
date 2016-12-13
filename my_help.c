@@ -4,13 +4,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "size.h"
 
-#define SIZE 10
+#define SIZE2 10
 
-int main (int argc, char* argv[])
+int my_help(char** argv)
 {
         int fd, bytesRead, i = 1;
         char* buff, my_cal;
+	int argc = arg_size(argv);
 
         if (argc <= 1)
         {
@@ -114,11 +116,11 @@ int main (int argc, char* argv[])
 	
 	}
 
-	if (strcmp (argv[1],"my_locate")==0)// afisarea pe linia de comanda a documentatiei pentru comanda my_locate
+	if (strcmp (argv[1],"my_echo")==0)// afisarea pe linia de comanda a documentatiei pentru comanda my_echo
 	{
 
 
-		fd = open("my_locate.txt", O_RDONLY);
+		fd = open("my_echo.txt", O_RDONLY);
 
 		 buff = malloc(sizeof(char *) * SIZE);
                         while ((bytesRead = read(fd, buff, SIZE)) > 0)
@@ -146,6 +148,20 @@ int main (int argc, char* argv[])
 		close(fd);
 	
 	}
+	if (strcmp (argv[1],"outside")==0)// afisarea pe linia de comanda a documentatiei pentru comanda outside
+	{
 
-        return 0;
+		fd = open("outside.txt", O_RDONLY);
+
+		 buff = malloc(sizeof(char *) * SIZE);
+                        while ((bytesRead = read(fd, buff, SIZE)) > 0)
+                        {
+                                buff[bytesRead] = '\0';
+                                printf("%s", buff);
+                        }
+                        free(buff);
+		close(fd);
+	
+	}
+        return 1;
 }
