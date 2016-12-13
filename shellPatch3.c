@@ -18,7 +18,7 @@
 #include "my_rename.h"//Ovidiu
 
 #define BUFFSIZE 64
-#define SEPARATOR " \t\r\n\a"
+#define SEPARATOR " \t\r\n\a;><|"
 #define ALOC_ERR fprintf(stderr,"Allocation error !")
 
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
