@@ -11,6 +11,14 @@ int size(char **argumente)
   return size;
 }
 
+void help_yes()
+{
+  printf("--->Octavian Bodnariu - my_yes <---\n");
+  printf("my_yes [NULL] printeaza \'y\'\n");
+  printf("my_yes [STRING] printeaza STRING\n");
+
+}
+
 int my_yes(char **argumente)
 {
   char *c;
@@ -37,11 +45,9 @@ int my_yes(char **argumente)
 
   if(argumente[1] != NULL)
   {
-	  if(strcmp(argumente[1], "--version")==0) //Daca argumentul este exact "--version" atunci afiseaza versiunea
-      //versiune(ver);
   	if(strcmp(argumente[1], "--help")==0) //Daca argumentul este exact "--help" atunci afiseaza help-ul
     {
-      //help();
+      help_yes();
     }
   }
   //Verificam daca argumentul este null

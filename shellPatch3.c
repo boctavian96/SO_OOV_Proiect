@@ -48,12 +48,17 @@ Autor : Ovidiu Andrasesc
 Implementari: cal, rename, locate
 
 */
-
+/**
+Returneaza 0 pentru status in functia buclaPrincipala()
+Argumentele primite (NULL)
+*/
 int my_exit(char** argumente)
 {
 	return 0;
 }
-
+/**
+Returneaza versiunea shell-ului
+*/
 int my_version(char** argumente)
 {
   printf("%s\n", VERSIUNE);
@@ -123,6 +128,7 @@ int main(int argc, char* argv[])
 }
 /**
 Citirea unei linii din terminal
+NOTA: fgets/scanf nu functioneaza 
 */
 char *citireLinie()
 {
@@ -202,7 +208,6 @@ char *parsareLinie(char *linie)
   return tokens;
 }
 /**
-@param : 
 @return : Adresa unei functii definite (poate fi 0 sau 1)
 */
 int executa(char **argumente)

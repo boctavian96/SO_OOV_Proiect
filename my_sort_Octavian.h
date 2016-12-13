@@ -10,6 +10,7 @@ void afisareLista(char* str[], int n);
 void revSort(char* str[], int n);
 void mySortRandom(char *str[], int n);
 void mySortPermanentSort(char *str[], char *fileName, int n);
+void help_sort();
 int my_sort(char**);
 
 int my_sort(char **argumente)
@@ -20,7 +21,15 @@ int my_sort(char **argumente)
   int n = 0; //Contor linii
   int i; //Contor
 
+  if(strcmp(argumente[1], "-h") == 0)
+  {
+    help_sort();
+    return 1;
+  }
+
+
   //Citire din fisier
+  //int cmp = strcmp(argumente[1], "-h");
   f = fopen(argumente[1], "r");
           if(f == 0)
         {
@@ -160,3 +169,11 @@ void mySortPermanentSort(char *str[], char *fileName, int n)
 
 }
 
+void help_sort()
+{
+  printf("---> Octavian Bodnariu - my_sort <--- \n");
+  printf("my_sort [FILENAME] = Sorteaza un fisier text \n");
+  printf("my_sort [FILENAME] -r = Amesteca elementele dintr-un fisier text\n");
+  printf("my_sort [FILENAME] -p = Sorteaza permanent un fisire text\n");
+  printf("my_sort [FILENAME] -rev = Sorteaza in ordine inversa fisierul\n");
+}
