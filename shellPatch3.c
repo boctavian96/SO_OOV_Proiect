@@ -15,8 +15,7 @@
 #include "my_help.h" //Vasile
 #include "my_cal.h" //Ovidiu
 #include "my_echo.h" //Ovidiu
-//#include "my_rename.h"//Ovidiu
-#include "loh.h"
+#include "my_rename.h"//Ovidiu
 
 #define BUFFSIZE 64
 #define SEPARATOR " \t\r\n\a"
@@ -45,10 +44,6 @@ Implementari: cal, rename, locate
 Versiune 1.4.4
 
 */
-int my_rename(char** argumente)
-{
-
-}
 
 int my_exit(char** argumente)
 {
@@ -67,6 +62,17 @@ int lansare(char **argumente);
 int executa(char **argumente);
 void buclaPrincipala();
 
+char *username[] = {
+  "Octavian",
+  "Ovidiu",
+  "Vasile"
+};
+
+char *password[] = {
+  "123",
+  "456",
+  "789"
+};
 //Lista de comenzi(String)
 char *comenzi[] = {
   "my_help",
