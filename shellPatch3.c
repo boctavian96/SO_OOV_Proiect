@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <dirent.h>
 
+#include "size.h"
 #include "my_sort_Octavian.h"
 #include "my_yes_Octavian.h"
 #include "my_outside_Octavian.h"
