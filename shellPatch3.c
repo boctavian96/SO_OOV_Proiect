@@ -23,6 +23,7 @@
 
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+#define VERSIUNE "Versiunea 1.181"
 
 
 /*
@@ -56,6 +57,7 @@ int my_exit(char** argumente)
 
 int my_version(char** argumente)
 {
+  printf("%s\n", VERSIUNE);
 	return 1;
 }
 
@@ -88,7 +90,8 @@ char *comenzi[] = {
   "my_echo",
   "my_rename",
   "outside",
-  "exit"
+  "exit",
+  "version"
 };
 //Lista in care vor intra functiile cu comenzile construite
 int (*comenzi_construite[])(char**) = {
@@ -101,7 +104,8 @@ int (*comenzi_construite[])(char**) = {
   &my_echo,
   &my_rename,
   &my_outside,
-  &my_exit
+  &my_exit,
+  &my_version
 };
 /**
 @return : Numarul de comenzi pe care il stie terminalul
