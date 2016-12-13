@@ -7,6 +7,9 @@
 
 #include "my_sort_Octavian.h"
 #include "my_yes_Octavian.h"
+#include "my_outside_Octavian.h"
+#include "my_ls.h" //Vasile
+#include "my_help.h" //Vasile
 
 #define BUFFSIZE 64
 #define SEPARATOR " \t\r\n\a"
@@ -42,12 +45,10 @@ int lansare(char **argumente);
 int executa(char **argumente);
 void buclaPrincipala();
 //Functii implementate
-int my_help(char **argumente);
 int my_version(char **argumente);
 int my_exit(char **argumente);
 int my_yes(char **argumente);
 int my_sort(char **argumente);
-int my_ls(char **argumente);
 int my_cal(char **argumente);
 int my_rename(char **argumente);
 int my_locate(char **argumente);
@@ -72,6 +73,7 @@ char *comenzi[] = {
   "my_cal",
   "my_locate",
   "my_rename",
+  "my_outsider",
   "exit"
 };
 //Lista in care vor intra functiile cu comenzile construite
@@ -84,6 +86,7 @@ int (*comenzi_construite[])(char**) = {
   &my_ls,
   &my_locate,
   &my_rename,
+  &my_outside,
   &my_exit
 };
 /**
@@ -261,6 +264,7 @@ void buclaPrincipala()
 @param :
 @return :
 */
+/*
 int my_help(char **argumente)
 {
   int i; //Contor
@@ -276,6 +280,7 @@ int my_help(char **argumente)
   printf("Folositi help si numele programului pentru mai mult ajutor\n");
   return 1;
 }
+*/
 //VASILE
 int my_version(char **argumente)
 {
@@ -297,11 +302,6 @@ int my_exit(char **argumente)
 @return : Intotdeauna 1
 */
 
-//VASILE
-int my_ls(char **argumente)
-{
-  return 1;
-}
 //OVIDIU
 int my_cal(char **argumente)
 {
