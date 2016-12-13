@@ -21,6 +21,7 @@
 #define BUFFSIZE 64
 #define SEPARATOR " \t\r\n\a;><|"
 #define ALOC_ERR fprintf(stderr,"Allocation error !")
+#define PASS "admin"
 
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
