@@ -1,0 +1,32 @@
+NAME
+    help - Display information about builtin commands.
+
+SYNOPSIS
+    help [-dms] [pattern ...]
+
+DESCRIPTION
+    Display information about builtin commands.
+    
+    Displays brief summaries of builtin commands.  If PATTERN is
+    specified, gives detailed help on all commands matching PATTERN,
+    otherwise the list of help topics is printed.
+    
+    Options:
+      -d	output short description for each topic
+      -m	display usage in pseudo-manpage format
+      -s	output only a short usage synopsis for each topic matching
+    	PATTERN
+    
+    Arguments:
+      PATTERN	Pattern specifiying a help topic
+    
+    Exit Status:
+    Returns success unless PATTERN is not found or an invalid option is given.
+
+SEE ALSO
+    bash(1)
+
+IMPLEMENTATION
+    GNU bash, version 4.3.46(1)-release (x86_64-pc-linux-gnu)
+    Copyright (C) 2013 Free Software Foundation, Inc.
+    License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html
