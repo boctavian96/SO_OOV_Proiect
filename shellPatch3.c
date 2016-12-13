@@ -13,6 +13,10 @@
 #include "my_outside_Octavian.h"
 #include "my_ls.h" //Vasile
 #include "my_help.h" //Vasile
+#include "my_cal.h" //Ovidiu
+#include "my_echo.h" //Ovidiu
+//#include "my_rename.h"//Ovidiu
+#include "loh.h"
 
 #define BUFFSIZE 64
 #define SEPARATOR " \t\r\n\a"
@@ -29,7 +33,7 @@ Basic loop :
 Info:
 
 Autor : Octavian Bodnariu
-Implementari: Shell, yes, sort
+Implementari: Shell, yes, sort, outside, ajustare cod
 
 Autor : Vasile Anisorac
 Implementari: ls, help + documentatie
@@ -41,23 +45,16 @@ Implementari: cal, rename, locate
 Versiune 1.4.4
 
 */
-
-int my_cal(char** argumente)
-{
-	return 1;
-}
 int my_rename(char** argumente)
 {
-	return 1;
+
 }
+
 int my_exit(char** argumente)
 {
 	return 0;
 }
-int my_echo(char** argumente)
-{
-	return 1;
-}
+
 int my_version(char** argumente)
 {
 	return 1;
@@ -76,10 +73,11 @@ char *comenzi[] = {
   "my_Version",
   "my_yes",
   "my_sort",
-  "my_ls",
   "my_cal",
+  "my_ls",
   "my_echo",
   "my_rename",
+  "outside",
   "exit"
 };
 //Lista in care vor intra functiile cu comenzile construite
@@ -92,6 +90,7 @@ int (*comenzi_construite[])(char**) = {
   &my_ls,
   &my_echo,
   &my_rename,
+  &my_outside,
   &my_exit
 };
 /**
@@ -241,6 +240,7 @@ int executa(char **argumente)
         if(strcmp(argumente[0], comenzi[i]) == 0)
             return (*comenzi_construite[i])(argumente);
     }
+  return -1;
 }
 /**
 Aceasta procedura grupeaza toate functiile scrise anterior si functioneaza
@@ -259,6 +259,10 @@ void buclaPrincipala()
     argumente = parsareLinie(linie);
     status = executa(argumente);
 
+    if(status == -1)
+    {
+	printf("Comanda \'%s\' nu exista !\n", argumente[0]);
+    }
     free(linie);
     free(argumente);
   }while(status);
