@@ -148,6 +148,20 @@ int my_help(char** argv)
 		close(fd);
 	
 	}
+	if (strcmp (argv[1],"outside")==0)// afisarea pe linia de comanda a documentatiei pentru comanda outside
+	{
 
+		fd = open("outside.txt", O_RDONLY);
+
+		 buff = malloc(sizeof(char *) * SIZE);
+                        while ((bytesRead = read(fd, buff, SIZE)) > 0)
+                        {
+                                buff[bytesRead] = '\0';
+                                printf("%s", buff);
+                        }
+                        free(buff);
+		close(fd);
+	
+	}
         return 1;
 }
