@@ -4,6 +4,9 @@
 #include <stdlib.h> // exit(), execvp()
 #include <string.h> //Pentru strtok()
 #include <time.h> //Pentru randomize
+#include <fcntl.h>
+#include <errno.h>
+#include <dirent.h>
 
 #include "my_sort_Octavian.h"
 #include "my_yes_Octavian.h"
@@ -35,33 +38,37 @@ Autor : Ovidiu Andrasesc
 Implementari: cal, rename, locate
 
 
-Versiune 1.2.5
+Versiune 1.4.4
 
 */
+
+int my_cal(char** argumente)
+{
+	return 1;
+}
+int my_rename(char** argumente)
+{
+	return 1;
+}
+int my_exit(char** argumente)
+{
+	return 0;
+}
+int my_echo(char** argumente)
+{
+	return 1;
+}
+int my_version(char** argumente)
+{
+	return 1;
+}
+
 //Functii specifice shell-ului
 char *citireLinie();
 char *parsareLinie(char *linie);
 int lansare(char **argumente);
 int executa(char **argumente);
 void buclaPrincipala();
-//Functii implementate
-int my_version(char **argumente);
-int my_exit(char **argumente);
-int my_yes(char **argumente);
-int my_sort(char **argumente);
-int my_cal(char **argumente);
-int my_rename(char **argumente);
-int my_locate(char **argumente);
-
-/*---------------------------> Functii specifice comenzilor <---------------------------------------- */
-
-//Sort
-void mySort(char* str[], int n);
-void afisareLista(char* str[], int n);
-void revSort(char* str[], int n);
-void mySortRandom(char *str[], int n);
-void mySortPermanentSort(char *str[], char *fileName, int n);
-
 
 //Lista de comenzi(String)
 char *comenzi[] = {
@@ -71,9 +78,8 @@ char *comenzi[] = {
   "my_sort",
   "my_ls",
   "my_cal",
-  "my_locate",
+  "my_echo",
   "my_rename",
-  "my_outsider",
   "exit"
 };
 //Lista in care vor intra functiile cu comenzile construite
@@ -84,9 +90,8 @@ int (*comenzi_construite[])(char**) = {
   &my_sort,
   &my_cal,
   &my_ls,
-  &my_locate,
+  &my_echo,
   &my_rename,
-  &my_outside,
   &my_exit
 };
 /**
@@ -259,61 +264,4 @@ void buclaPrincipala()
   }while(status);
 
 }
-//VASILE
-/**
-@param :
-@return :
-*/
-/*
-int my_help(char **argumente)
-{
-  int i; //Contor
-  printf("Proiect Sisteme de operare\n");
-  printf("Scrieti numele programului si argumentele si apasa ENTER\n");
-  printf("Urmatorele instructiuni sunt construite: \n");
 
-  for(i = 0; i < terminal_num_comenzi_construite(); i++)
-  {
-    printf(" %s\n", comenzi[i]);
-  }
-
-  printf("Folositi help si numele programului pentru mai mult ajutor\n");
-  return 1;
-}
-*/
-//VASILE
-int my_version(char **argumente)
-{
-  return 1;
-}
-//Iesirea
-/**
-@param : Argument primit de la linia de comanda
-@return : Intotdeauna 0. Inchide terminalul
-*/
-int my_exit(char **argumente)
-{
-  return 0;
-}
-//OCTAVIAN
-/**
-@param : Argumente primite din linia de comanda
-@exemple : my_yes [STRING] ; my_yes [NULL] ;
-@return : Intotdeauna 1
-*/
-
-//OVIDIU
-int my_cal(char **argumente)
-{
-  return 1;
-}
-//OVIDIU
-int my_rename(char **argumente)
-{
-  return 1;
-}
-//OVIDIU
-int my_locate(char **argumente)
-{
-  return 1;
-}

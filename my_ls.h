@@ -6,14 +6,9 @@
 #include <unistd.h>
 #include <dirent.h>
 
-//PATH=$PATH:$HOME/proiect/
-// export PATH
-// $PATH
-
-#define SIZE2 10
-
-int my_ls(char** argv)
+int my_ls(char** argumente)
 {
+printf("LS Vasi\n");//Debug
 DIR *dir;
 struct dirent *ent;
 if ((dir = opendir (".")) != NULL) {
