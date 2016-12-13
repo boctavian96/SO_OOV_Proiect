@@ -116,11 +116,11 @@ int my_help(char** argv)
 	
 	}
 
-	if (strcmp (argv[1],"my_locate")==0)// afisarea pe linia de comanda a documentatiei pentru comanda my_locate
+	if (strcmp (argv[1],"my_echo")==0)// afisarea pe linia de comanda a documentatiei pentru comanda my_echo
 	{
 
 
-		fd = open("my_locate.txt", O_RDONLY);
+		fd = open("my_echo.txt", O_RDONLY);
 
 		 buff = malloc(sizeof(char *) * SIZE);
                         while ((bytesRead = read(fd, buff, SIZE)) > 0)
