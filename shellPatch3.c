@@ -45,9 +45,6 @@ Implementari: ls, help + documentatie
 Autor : Ovidiu Andrasesc
 Implementari: cal, rename, locate
 
-
-Versiune 1.4.4
-
 */
 
 int my_exit(char** argumente)
