@@ -1,0 +1,2 @@
+Comanda outside apeleaza o comanda predefinita.
+Versiunea Octavian 2.0
