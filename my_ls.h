@@ -5,17 +5,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 int my_ls(char** argumente)
 {
-printf("LS Vasi\n");//Debug
+
 DIR *dir;
 struct dirent *ent;
 if ((dir = opendir (".")) != NULL) {
   /* afiseaza toate folderele si fisierele */
   while ((ent = readdir (dir)) != NULL) {
 
-    printf ("%s\n", ent->d_name);
+    printf (ANSI_COLOR_YELLOW "%s\n" ANSI_COLOR_RESET , ent->d_name );
   }
   closedir(dir);
 } else {
