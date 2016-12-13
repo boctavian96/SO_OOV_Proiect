@@ -199,41 +199,6 @@ char *parsareLinie(char *linie)
   return tokens;
 }
 /**
-@param : Un string de tip array parsat
-@return : Intotdeauna 1
-*/
-int lansare(char **argumente)
-{
-  pid_t pid;
-  int status;
-
-  pid = fork();
-
-  if(pid == 0)
-  {
-    //Proces copil
-    if(execvp(argumente[0], argumente) == -1)
-    {
-      perror("LNS");
-    }
-    exit(EXIT_FAILURE);
-  }
-  else if(pid < 0)
-  {
-    //EROARE LA FORK() !!!
-    perror("LNS-fork");
-  }
-  else
-  {
-    do
-    {
-      waitpid(pid, &status, WUNTRACED);
-    }while(!WIFEXITED(status) && !WIFSIGNALED(status));
-  }
-
-   return 1;
-}
-/**
 @param : 
 @return : Adresa unei functii definite (poate fi 0 sau 1)
 */
