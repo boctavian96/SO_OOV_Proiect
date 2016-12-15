@@ -4,7 +4,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "size.h"
 
 #define SIZE2 10
 
