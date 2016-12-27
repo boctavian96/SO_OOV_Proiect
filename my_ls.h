@@ -16,7 +16,7 @@
 #define ANSI_COLOR_BLUE    "\x1b[34m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-int my_ls(int argc, char* argv[])
+int my_ls(char* argv[])
 {
 unsigned char isFile =0x8;
 unsigned char isFolder =0x4;
